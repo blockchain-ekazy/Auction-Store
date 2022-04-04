@@ -19,6 +19,20 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("image");
 
+//serve static application/frontend
+app.use(express.static(path.resolve(__dirname, "./build")));
+
+//serve images
+app.use(express.static(path.resolve(__dirname, "./public")));
+
+//metadata api
+app.use("/api/", require("./src/api/metadata"));
+
+// serve default
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
+
 //image upload
 app.post("/upload", function (req, res) {
   upload(req, res, function (err) {
@@ -29,20 +43,6 @@ app.post("/upload", function (req, res) {
     }
     return res.status(200).send(req.file);
   });
-});
-
-//serve images
-app.use(express.static(path.resolve(__dirname, "./public")));
-
-//serve static application/frontend
-app.use(express.static(path.resolve(__dirname, "./build")));
-
-//metadata api
-app.use("/api/", require("./src/api/metadata"));
-
-// serve default
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
 
 app.listen(process.env.PORT || 8000, function () {
