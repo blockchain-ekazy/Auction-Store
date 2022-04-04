@@ -109,7 +109,9 @@ export default function Item() {
   }, []);
 
   const createItem = async (metadata) => {
-    await ct.methods.mint(metadata).send({ from: metaMaskAccount, value: 0 });
+    return await ct.methods
+      .mint(metadata)
+      .send({ from: metaMaskAccount, value: 0 });
   };
 
   const updateItem = async (event) => {
@@ -129,7 +131,7 @@ export default function Item() {
 
     setLoading(true);
 
-    axios.post("http://localhost:8000/upload", formData, {}).then((res) => {
+    axios.post("/upload", formData, {}).then((res) => {
       console.log("Image upload success");
 
       let path = res.data.filename;
