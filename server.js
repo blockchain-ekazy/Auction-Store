@@ -31,11 +31,11 @@ app.post("/upload", function (req, res) {
   });
 });
 
-//serve static application/frontend
-app.use(express.static(path.resolve(__dirname, "./build")));
-
 //serve images
 app.use(express.static(path.resolve(__dirname, "./public")));
+
+//serve static application/frontend
+app.use(express.static(path.resolve(__dirname, "./build")));
 
 //metadata api
 app.use("/api/", require("./src/api/metadata"));
