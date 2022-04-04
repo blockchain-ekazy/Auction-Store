@@ -131,7 +131,7 @@ export default function Item() {
     formData.append("image", event.target[0].files[0]);
 
     let path;
-    axios.post("http://localhost:8000/upload", formData, {}).then((res) => {
+    axios.post("/upload", formData, {}).then((res) => {
       path = res.data.filename;
 
       console.log(res.data);

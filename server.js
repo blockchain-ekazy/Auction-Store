@@ -42,6 +42,6 @@ app.get("*", (req, res) => {
 //metadata api
 app.use("/api/", require("./src/api/metadata"));
 
-app.listen(8000, function () {
-  console.log("App running on port 8000");
+app.listen(process.env.PORT || 8000, function () {
+  console.log("App running on port 8000 ");
 });
