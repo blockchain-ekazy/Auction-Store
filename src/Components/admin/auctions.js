@@ -8,7 +8,7 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import DataTable from "react-data-table-component";
 
 const REACT_APP_CONTRACT_ADDRESS = "0xDEDfb6398DB752cB991905be918412d7C5F25f1c";
-const nftContractAddress = "0x1ecbBfa6F656FA4D1744fBF9353c53b1B09Ae8Eb";
+const nftContractAddress = "0xaE62E801988b3698c91FC39F95a68B9fb0AD4651";
 const coinContractAddress = "0x8415Ea4719b7e0CAc256Cf66B076930E2cEA970B";
 const SELECTEDNETWORK = "80001";
 const SELECTEDNETWORKNAME = "Polygon Testnet";

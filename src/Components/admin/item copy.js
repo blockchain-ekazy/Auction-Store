@@ -4,7 +4,7 @@ import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
 import MaterialStory from "react-data-table-component";
 
-const REACT_APP_CONTRACT_ADDRESS = "0x1ecbBfa6F656FA4D1744fBF9353c53b1B09Ae8Eb";
+const REACT_APP_CONTRACT_ADDRESS = "0xaE62E801988b3698c91FC39F95a68B9fb0AD4651";
 const SELECTEDNETWORK = "80001";
 const SELECTEDNETWORKNAME = "Polygon Testnet";
 

@@ -9,7 +9,7 @@ import firebase from "../../firebase.js";
 // import { collection, addDoc } from "firebase/firestore";
 const db = firebase.firestore();
 
-const REACT_APP_CONTRACT_ADDRESS = "0x1ecbBfa6F656FA4D1744fBF9353c53b1B09Ae8Eb";
+const REACT_APP_CONTRACT_ADDRESS = "0xaE62E801988b3698c91FC39F95a68B9fb0AD4651";
 const SELECTEDNETWORK = "80001";
 const SELECTEDNETWORKNAME = "Polygon Testnet";
 
@@ -145,7 +145,9 @@ export default function Item() {
         .set(itemData)
         .then(() => {
           console.log("Databse update success");
-          createItem(window.location.origin + "/api/metadata/" + total);
+          createItem(
+            window.location.origin + "/api/metadata/" + (Number(total) + 1)
+          );
           setLoading(false);
         });
     });

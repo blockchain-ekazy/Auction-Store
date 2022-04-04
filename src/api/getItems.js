@@ -12,10 +12,12 @@ module.exports = {
 
       await axios
         .get(
-          "https://firestore.googleapis.com/v1/projects/dutchauction-83348/databases/(default)/documents/items?key=AIzaSyCYWaaVk6XSUwmX19gPFwHT0UkDfqqnlxQ"
+          "https://firestore.googleapis.com/v1/projects/dutchauction-83348/databases/(default)/documents/items/" +
+            id +
+            "?key=AIzaSyCYWaaVk6XSUwmX19gPFwHT0UkDfqqnlxQ"
         )
         .then((data) => {
-          let fields = data.data.documents[id].fields;
+          let fields = data.data.fields;
           return res.json({
             name: fields.name.stringValue,
             description: fields.description.stringValue,
