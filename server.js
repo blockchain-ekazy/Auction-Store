@@ -31,17 +31,19 @@ app.post("/upload", function (req, res) {
 
 //serve static application/frontend
 app.use(express.static(path.resolve(__dirname, "./build")));
+
 //serve images
-// app.use(express.static("public"));
-app.use(express.static(path.resolve(__dirname, "./public")));
-//serve default
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "build", "index.html"));
-});
+app.use(express.static("public"));
+// app.use(express.static(path.resolve(__dirname, "./public")));
 
 //metadata api
 app.use("/api/", require("./src/api/metadata"));
 
-app.listen(process.env.PORT || 8000, function () {
+// serve default
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
+
+app.listen(8000, function () {
   console.log("App running on port 8000 ");
 });
