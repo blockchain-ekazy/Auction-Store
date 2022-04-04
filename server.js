@@ -35,8 +35,7 @@ app.post("/upload", function (req, res) {
 app.use(express.static(path.resolve(__dirname, "./build")));
 
 //serve images
-app.use(express.static("public"));
-// app.use(express.static(path.resolve(__dirname, "./public")));
+app.use(express.static(path.resolve(__dirname, "./public")));
 
 //metadata api
 app.use("/api/", require("./src/api/metadata"));
