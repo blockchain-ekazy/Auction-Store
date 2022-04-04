@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var express = require("express");
 var app = express();
 var multer = require("multer");
@@ -44,6 +46,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
 
-app.listen(8000, function () {
+app.listen(process.env.PORT || 8000, function () {
   console.log("App running on port 8000 ");
 });
