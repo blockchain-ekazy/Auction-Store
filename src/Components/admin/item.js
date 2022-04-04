@@ -6,7 +6,7 @@ import MaterialStory from "react-data-table-component";
 import axios from "axios";
 
 import firebase from "../../firebase.js";
-import { collection, addDoc } from "firebase/firestore";
+// import { collection, addDoc } from "firebase/firestore";
 const db = firebase.firestore();
 
 const REACT_APP_CONTRACT_ADDRESS = "0x1ecbBfa6F656FA4D1744fBF9353c53b1B09Ae8Eb";
@@ -25,12 +25,13 @@ const columns = [
   },
 ];
 
-let web3, metaMaskAccount, ct;
+let web3, metaMaskAccount, ct, total;
 
 export default function Item() {
   const [errormsg, setErrorMsg] = useState(false);
   const [dropdown, setDropdown] = useState(0);
   const [itemRows, setItemRows] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
     if (await detectEthereumProvider()) {
@@ -44,7 +45,7 @@ export default function Item() {
 
       if ((await web3.eth.net.getId()) == SELECTEDNETWORK) {
         ct = new web3.eth.Contract(abi, REACT_APP_CONTRACT_ADDRESS);
-        let total = await ct.methods.totalSupply().call();
+        total = await ct.methods.totalSupply().call();
         let ItemOption = [];
         ItemOption.push(
           <option disabled selected value="">
@@ -107,11 +108,7 @@ export default function Item() {
     }
   }, []);
 
-  const createItem = async (event) => {
-    event.preventDefault();
-    let metadata = document.getElementById("itemMetadata").value;
-
-    // ct = await new web3.eth.Contract(abi, REACT_APP_CONTRACT_ADDRESS);
+  const createItem = async (metadata) => {
     await ct.methods.mint(metadata).send({ from: metaMaskAccount, value: 0 });
   };
 
@@ -130,11 +127,12 @@ export default function Item() {
     const formData = new FormData();
     formData.append("image", event.target[0].files[0]);
 
-    let path;
-    axios.post("/upload", formData, {}).then((res) => {
-      path = res.data.filename;
+    setLoading(true);
 
-      console.log(res.data);
+    axios.post("http://localhost:8000/upload", formData, {}).then((res) => {
+      console.log("Image upload success");
+
+      let path = res.data.filename;
 
       let itemData = {
         path: path,
@@ -142,12 +140,14 @@ export default function Item() {
         description: document.getElementById("itemDescription").value,
       };
 
-      try {
-        const docRef = addDoc(collection(db, "items"), itemData);
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
+      db.collection("items")
+        .doc((Number(total) + 1).toString())
+        .set(itemData)
+        .then(() => {
+          console.log("Databse update success");
+          createItem(window.location.origin + "/api/metadata/" + total);
+          setLoading(false);
+        });
     });
   };
 
@@ -229,6 +229,13 @@ export default function Item() {
         </div>
       ) : (
         alert(errormsg)
+      )}
+      {loading ? (
+        <div className="loading">
+          <img src="/loading.gif" />
+        </div>
+      ) : (
+        ""
       )}
     </>
   );
