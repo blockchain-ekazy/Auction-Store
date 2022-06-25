@@ -1,0 +1,15 @@
+.adminhome {
+  background-image: url(../../Images/bg.png);
+  background-size: cover;
+}
+.adminhome .row {
+  min-height: 90vh;
+}
+.connectMain {
+  max-width: 500px;
+  margin: auto;
+  cursor: pointer;
+}
+#logo-container {
+  max-width: 100px;
+}

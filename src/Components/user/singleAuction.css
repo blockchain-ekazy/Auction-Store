@@ -1,0 +1,34 @@
+body {
+  background-image: url(../../Images/bg.png);
+  background-size: cover !important;
+  background-position: center;
+}
+.container {
+  max-width: 1280px;
+}
+.bnbicon {
+  width: 30px;
+  margin-top: -7px;
+  margin-left: 10px;
+}
+.lightfont {
+  font-weight: 300;
+}
+.btn-theme {
+  font-size: large;
+  display: block;
+  margin-left: auto !important;
+  width: 100%;
+}
+.singledate:before {
+  content: "\f017";
+  font-family: "Font Awesome 6 Free";
+  font-size: 30px;
+  position: absolute;
+  left: 15px;
+  top: 0;
+  padding-top: 5px;
+}
+.singledate {
+  padding-left: 55px;
+}

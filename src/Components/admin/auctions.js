@@ -7,9 +7,11 @@ import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
 import DataTable from "react-data-table-component";
 
-const REACT_APP_CONTRACT_ADDRESS = "0xDEDfb6398DB752cB991905be918412d7C5F25f1c";
-const nftContractAddress = "0xaE62E801988b3698c91FC39F95a68B9fb0AD4651";
-const coinContractAddress = "0x8415Ea4719b7e0CAc256Cf66B076930E2cEA970B";
+import { itemAddress } from "../contracts";
+import { auctionAddress } from "../contracts";
+import { coinAddress } from "../contracts";
+import Header from "./header";
+
 const SELECTEDNETWORK = "80001";
 const SELECTEDNETWORKNAME = "Polygon Testnet";
 
@@ -24,18 +26,23 @@ const columns = [
   {
     name: "Status",
     selector: (row) => row.status,
+    sortable: true,
   },
   {
-    name: "Bid Period",
+    name: "End Date",
     selector: (row) => row.auctionBidPeriod,
   },
   {
-    name: "Highest Bid",
+    name: "Current Bid",
     selector: (row) => row.highestBid,
   },
   {
-    name: "Highest Bidder",
+    name: "Bidder Address",
     selector: (row) => row.highestBidder,
+  },
+  {
+    name: "Claimed",
+    selector: (row) => row.claimed,
   },
 ];
 
@@ -43,8 +50,10 @@ export default function Auctions() {
   const [errormsg, setErrorMsg] = useState(false);
   const [dropdown, setDropdown] = useState(0);
   const [auctionRows, setAuctionRows] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
+    setLoading(true);
     if (await detectEthereumProvider()) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
@@ -54,30 +63,46 @@ export default function Auctions() {
       metaMaskAccount = metaMaskAccount[0];
 
       if ((await web3.eth.net.getId()) == SELECTEDNETWORK) {
-        ct = await new web3.eth.Contract(abi, REACT_APP_CONTRACT_ADDRESS);
-        nftCt = await new web3.eth.Contract(nftAbi, nftContractAddress);
-        coinCt = await new web3.eth.Contract(coinAbi, coinContractAddress);
+        ct = await new web3.eth.Contract(abi, auctionAddress);
+        nftCt = await new web3.eth.Contract(nftAbi, itemAddress);
+        coinCt = await new web3.eth.Contract(coinAbi, coinAddress);
 
         if ((await nftCt.methods.owner().call()) != metaMaskAccount)
           setErrorMsg("Connect with owner wallet to continue");
 
         let indexforQuery = await ct.methods.getc().call();
-        let a = [];
+        indexforQuery = new Set(indexforQuery);
+        indexforQuery = Array.from(indexforQuery);
+
+        let a;
         let b = [];
 
         for (let i = 0; i < indexforQuery.length; i++) {
-          a.push(await ct.methods.Auctions(indexforQuery[i]).call());
-          let c = new Date(a[i].expiresAt * 1000);
+          a = await ct.methods.Auctions(indexforQuery[i]).call();
           b.push({
-            id: indexforQuery[i],
-            status: a[i].auctionEnd ? "Active" : "Ended",
-            auctionBidPeriod: c.toUTCString(),
-            highestBid: a[i].highestBid,
-            highestBidder: a[i].highestBidder,
+            id: a.nftId,
+            status:
+              Math.floor(new Date().getTime() / 1000) < a.expiresAt
+                ? "Active"
+                : "Ended",
+            auctionBidPeriod: new Date(a.expiresAt * 1000).toUTCString(),
+            highestBid: a.highestBid / 10 ** 18,
+            highestBidder: (
+              <a
+                target="_blank"
+                href={
+                  "https://mumbai.polygonscan.com/address/" + a.highestBidder
+                }
+              >
+                {a.highestBidder}
+              </a>
+            ),
+            claimed: String(a.claimed),
           });
-          setAuctionRows(b);
         }
         setAuctionRows(b);
+
+        setLoading(false);
       } else {
         setErrorMsg('Select "' + SELECTEDNETWORKNAME + '" network to continue');
       }
@@ -108,36 +133,65 @@ export default function Auctions() {
     }
   }, []);
 
+  // async function loadAuctions() {
+  //   alert("Loading");
+
+  //   let indexforQuery = await ct.methods.getc().call();
+  //   indexforQuery = new Set(indexforQuery);
+
+  //   console.log(indexforQuery);
+
+  //   let a = [];
+  //   let b = [];
+
+  //   for (let i = 0; i < indexforQuery.length; i++) {
+  //     a.push(await ct.methods.Auctions(indexforQuery[i]).call());
+  //     b.push({
+  //       id: indexforQuery[i],
+  //       status:
+  //         Math.floor(new Date().getTime() / 1000) < a[i].expiresAt
+  //           ? "Active"
+  //           : "Ended",
+  //       auctionBidPeriod: new Date(a[i].expiresAt * 1000).toUTCString(),
+  //       minBid: a[i].minBid,
+  //       highestBid: a[i].highestBid,
+  //       highestBidder: a[i].highestBidder,
+  //     });
+  //   }
+  //   setAuctionRows(b);
+
+  //   alert("Complete");
+  // }
+
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12">
-          <h3 className="py-3">Overview</h3>
-          <div className="tableDiv">
-            {/* <table id="myTable" class="display ">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Highest Bid</th>
-                  <th>End Date</th>
-                  <th>Highest Bid Address</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>{auctionRows}</tbody>
-            </table> */}
-            <DataTable
-              columns={columns}
-              data={auctionRows}
-              pagination
-              fixedHeader
-              fixedHeaderScrollHeight="300px"
-              highlightOnHover
-            />
+    <>
+      <Header />
+      <div className="main">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="py-3">Overview</h3>
+              <div className="tableDiv">
+                <DataTable
+                  columns={columns}
+                  data={auctionRows}
+                  pagination
+                  fixedHeader
+                  fixedHeaderScrollHeight="300px"
+                  highlightOnHover
+                />
+              </div>
+            </div>
           </div>
+          {loading ? (
+            <div className="loading">
+              <img src="/loading.gif" />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

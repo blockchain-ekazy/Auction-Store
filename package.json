@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
+    "@pinata/sdk": "^1.1.25",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -11,9 +12,12 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "firebase": "^9.6.10",
+    "ipfs-core": "^0.14.2",
+    "jquery": "^3.6.0",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
+    "react-countdown": "^2.3.2",
     "react-data-table-component": "^7.4.7",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
@@ -21,7 +25,7 @@
     "web3": "^1.7.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
