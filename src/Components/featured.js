@@ -16,6 +16,8 @@ export default function Featured() {
 
     let res = await getDoc(doc(db, "items", id));
 
+    console.log(id);
+
     setAuction({
       title: res.data().name,
       description: res.data().description,

@@ -5,16 +5,27 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 export default function Settings() {
   const setSliderItems = async (event) => {
     event.preventDefault();
-    // let d = await getDoc(doc(db, "settings", "featured"));
-    // console.log(d.docs.map((d)=> ({d.data()})));
-    // console.log(d.data());
-
-    const featuredIds = document.getElementById("featuredIds").value;
+    const sliderIds = document.getElementById("sliderIds").value;
     await setDoc(doc(db, "settings", "slides"), {
-      auctions: featuredIds,
+      auctions: sliderIds,
+    }).then((res) => alert("Slides updated"));
+  };
+
+  const setFeaturedItem = async (event) => {
+    event.preventDefault();
+    const featuredIds = document.getElementById("featuredId").value;
+    await setDoc(doc(db, "settings", "featured"), {
+      auction: featuredIds,
     }).then((res) => alert("Featured Auction updated"));
   };
-  const update = () => {};
+
+  const setLatestItems = async (event) => {
+    event.preventDefault();
+    const featuredIds = document.getElementById("latestIds").value;
+    await setDoc(doc(db, "settings", "latest"), {
+      auctions: featuredIds,
+    }).then((res) => alert("Latest Auctions updated"));
+  };
 
   return (
     <>
@@ -22,7 +33,7 @@ export default function Settings() {
       <div className="main">
         <div className="container">
           <div className="row py-5">
-            <div className="col-md-5">
+            <div className="col-md-6">
               <form onSubmit={setSliderItems} encType="multipart/form-data">
                 <label className="form-label">Set Slider Items</label> <br />
                 <input
@@ -30,8 +41,36 @@ export default function Settings() {
                   className="form-control"
                   required
                   type="text"
-                  id="featuredIds"
-                  name="featuredIds"
+                  id="sliderIds"
+                  name="sliderIds"
+                />
+                <button className="btn btn-primary">Submit</button>
+              </form>
+              <br />
+              <br />
+              <form onSubmit={setFeaturedItem} encType="multipart/form-data">
+                <label className="form-label">Set Featured Item</label> <br />
+                <input
+                  placeholder="Item Id"
+                  className="form-control"
+                  required
+                  type="text"
+                  id="featuredId"
+                  name="featuredId"
+                />
+                <button className="btn btn-primary">Submit</button>
+              </form>
+              <br />
+              <br />
+              <form onSubmit={setLatestItems} encType="multipart/form-data">
+                <label className="form-label">Set Latest Items</label> <br />
+                <input
+                  placeholder="Item Id"
+                  className="form-control"
+                  required
+                  type="text"
+                  id="latestIds"
+                  name="latestIds"
                 />
                 <button className="btn btn-primary">Submit</button>
               </form>

@@ -113,7 +113,7 @@ export default function Home() {
             </div>
             <div className="row">
               <div className="col-md-6 text-left    ">
-                <h2 className="paint text-white">Paintings Available</h2>
+                <h2 className="paint text-white">Latest Items</h2>
               </div>
               <div className="col-md-6"></div>
             </div>
@@ -220,22 +220,15 @@ export default function Home() {
       </div>
       <div className="footer">
         <div className="container">
-          <div className="row pt-5">
+          <div className="row pt-3">
             <div className="col-md-12 text-center">
               <i class="iii px-3 fa-brands fa-facebook"></i>
               <i class="iii px-3 fa-brands fa-twitter"></i>
               <i class="iii px-3 fa-brands fa-instagram"></i>
               <i class="iii px-3 fa-brands fa-linkedin"></i>
-              <div class="subscribe pt-5">
-                <div class="form">
-                  <input type="email " class="form__email" />
-                  <button class="form__button ml-3 ">Subcribe</button>
-                </div>
-              </div>
+
               <p className="copy pt-3">
-                © 2020 Virtosu Art Gallery. All rights reserved.
-                <br />
-                COPYRIGHT@VIRTOSUART.COM
+                © 2022 NFT ART LINK. All rights reserved.
               </p>
             </div>
           </div>
