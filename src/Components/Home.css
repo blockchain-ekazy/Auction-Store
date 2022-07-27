@@ -5,15 +5,15 @@
 h3,
 h4,
 h5 {
-  font-family: "Frank Ruhl Libre";
+  /* font-family: "Frank Ruhl Libre"; */
 }
 h1,
 h2 {
-  font-family: "Frank Ruhl Libre";
+  /* font-family: "Frank Ruhl Libre"; */
 }
 p,
 body {
-  font-family: "Open Sans";
+  /* font-family: "Open Sans"; */
   font-size: 14px;
   font-weight: 400;
   color: #000;

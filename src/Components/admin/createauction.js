@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import abi from "../abi/auctionabi.json";
 import nftAbi from "../abi/itemabi.json";
-import coinAbi from "../abi/coinabi.json";
 import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
 
@@ -12,8 +11,8 @@ import { coinAddress } from "../contracts";
 import "./Auctions.css";
 import Header from "./header";
 
-const SELECTEDNETWORK = "80001";
-const SELECTEDNETWORKNAME = "Polygon Testnet";
+const SELECTEDNETWORK = "4";
+const SELECTEDNETWORKNAME = "Rinkeby Testnet";
 
 let web3, metaMaskAccount, ct, nftCt;
 

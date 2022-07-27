@@ -75,9 +75,10 @@ export default function SingleAuction() {
     let ct = await new web3.eth.Contract(abi, auctionAddress);
 
     alert("Processing transaction");
+    let o = String(offer * 10 ** 18);
     await ct.methods
-      .makeBid(auctionId, String(offer * 10 ** 18))
-      .send({ from: metaMaskAccount })
+      .makeBid(auctionId)
+      .send({ from: metaMaskAccount, value: o })
       .then(() => window.location.reload());
   };
 

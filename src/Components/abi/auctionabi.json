@@ -33,15 +33,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "coinAddress",
-    "outputs": [
-      { "internalType": "contract IERC20", "name": "", "type": "address" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "uint256", "name": "nftId", "type": "uint256" },
       { "internalType": "uint256", "name": "minBid", "type": "uint256" },
@@ -62,13 +53,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "gettime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "name": "itemQuery",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
@@ -77,12 +61,11 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "nftId", "type": "uint256" },
-      { "internalType": "uint256", "name": "offerP", "type": "uint256" }
+      { "internalType": "uint256", "name": "nftId", "type": "uint256" }
     ],
     "name": "makeBid",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -117,13 +100,6 @@
   },
   {
     "inputs": [{ "internalType": "address", "name": "a", "type": "address" }],
-    "name": "setCoinAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "a", "type": "address" }],
     "name": "setNftAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -135,7 +111,7 @@
     ],
     "name": "settleAuction",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {

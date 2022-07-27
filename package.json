@@ -17,17 +17,19 @@
     "multer": "^1.4.4",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
+    "react-app-rewired": "^2.2.1",
     "react-countdown": "^2.3.2",
     "react-data-table-component": "^7.4.7",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
+    "react-toastify": "^9.0.7",
     "web-vitals": "^2.1.4",
     "web3": "^1.7.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

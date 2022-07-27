@@ -1,3 +1,6 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./App.css";
 import Item from "./Components/admin/item";
 import CreateAuction from "./Components/admin/createauction";
@@ -10,6 +13,7 @@ import Header from "./Components/user/header";
 import Home from "./Components/Home";
 import Settings from "./Components/admin/settings";
 import SingleAuction from "./Components/user/singleAuction";
+import Create from "./Components/user/create";
 
 function App() {
   return (
@@ -57,6 +61,16 @@ function App() {
           />
           <Route
             exact
+            path="/create"
+            element={
+              <>
+                <Header />
+                <Create />
+              </>
+            }
+          />
+          <Route
+            exact
             path="/"
             element={
               <>
@@ -67,6 +81,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <ToastContainer autoClose={4000} hideProgressBar theme="colored" />
     </>
   );
 }

@@ -6,7 +6,7 @@
   overflow: auto;
 }
 .main {
-  background-image: url(../../Images/bg.png);
+  /* background-image: url(../../Images/bg.png); */
   background-size: cover;
 }
 .main .row {

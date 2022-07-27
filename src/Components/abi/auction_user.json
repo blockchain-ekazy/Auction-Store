@@ -95,18 +95,25 @@
     "type": "event"
   },
   {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "Auctions",
+    "outputs": [
+      { "internalType": "uint256", "name": "nftId", "type": "uint256" },
+      { "internalType": "uint256", "name": "expiresAt", "type": "uint256" },
+      { "internalType": "uint256", "name": "highestBid", "type": "uint256" },
+      { "internalType": "address", "name": "highestBidder", "type": "address" },
+      { "internalType": "bool", "name": "claimed", "type": "bool" },
+      { "internalType": "address", "name": "creator", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "to", "type": "address" },
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
     "name": "approve",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "a", "type": "address" }],
-    "name": "approveAuctionContract",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -122,10 +129,30 @@
   },
   {
     "inputs": [
+      { "internalType": "uint256", "name": "minBid", "type": "uint256" },
+      { "internalType": "uint256", "name": "expiresAt", "type": "uint256" },
+      { "internalType": "string", "name": "metadata", "type": "string" }
+    ],
+    "name": "createAuction",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
     "name": "getApproved",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getc",
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -140,18 +167,34 @@
     "type": "function"
   },
   {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "itemQuery",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
-      { "internalType": "string", "name": "metadata", "type": "string" }
+      { "internalType": "uint256", "name": "nftId", "type": "uint256" }
     ],
-    "name": "mint",
+    "name": "makeBid",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "name",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nftAddress",
+    "outputs": [
+      { "internalType": "contract IERC721", "name": "", "type": "address" }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -168,6 +211,13 @@
     ],
     "name": "ownerOf",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "queryIndex",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -207,6 +257,22 @@
       { "internalType": "bool", "name": "approved", "type": "bool" }
     ],
     "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "f", "type": "uint256" }],
+    "name": "setFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "nftId", "type": "uint256" }
+    ],
+    "name": "settleAuction",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -278,16 +344,6 @@
       { "internalType": "address", "name": "newOwner", "type": "address" }
     ],
     "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "itemId", "type": "uint256" },
-      { "internalType": "string", "name": "metadata", "type": "string" }
-    ],
-    "name": "updateITEM",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

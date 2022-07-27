@@ -12,14 +12,14 @@ import Header from "./header";
 import { db } from "../../firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-const SELECTEDNETWORK = "80001";
-const SELECTEDNETWORKNAME = "Polygon Testnet";
+const SELECTEDNETWORK = "4";
+const SELECTEDNETWORKNAME = "Rinkeby Testnet";
 
 const IPFS = require("ipfs-core");
 const pinataSDK = require("@pinata/sdk");
 const pinata = pinataSDK(
-  "c7c71a2b1a2f9f9ec205",
-  "1e19ebdd0a345cf90d8491437ddd2bba60ae9156110eb052f102086b09d799a9"
+  "03c57681b0e77b962da8",
+  "f6fd39d19c1c69ffb8488bc8ab007c62865555b5a7c7d6fa8626527871767d3d"
 );
 
 const columns = [

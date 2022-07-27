@@ -2,20 +2,18 @@ import "./viewauctions.css";
 import React, { useState, useEffect } from "react";
 import abi from "../abi/auctionabi.json";
 import nftAbi from "../abi/itemabi.json";
-import coinAbi from "../abi/coinabi.json";
 import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
 import axios from "axios";
 
 import { itemAddress } from "../contracts";
 import { auctionAddress } from "../contracts";
-import { coinAddress } from "../contracts";
 import Countdown, { zeroPad } from "react-countdown";
 
-const SELECTEDNETWORK = "80001";
-const SELECTEDNETWORKNAME = "Polygon Testnet";
+const SELECTEDNETWORK = "4";
+const SELECTEDNETWORKNAME = "Rinkeby Testnet";
 
-let web3, metaMaskAccount, ct, nftCt, coinCt;
+let web3, metaMaskAccount, ct, nftCt;
 let a = [];
 
 const renderer = ({ days, hours, minutes, seconds }) => (
@@ -39,7 +37,7 @@ export default function PastAuctions() {
       if ((await web3.eth.net.getId()) == SELECTEDNETWORK) {
         ct = await new web3.eth.Contract(abi, auctionAddress);
         nftCt = await new web3.eth.Contract(nftAbi, itemAddress);
-        coinCt = await new web3.eth.Contract(coinAbi, coinAddress);
+
         await loadAuctions(metaMaskAccount);
       } else {
         setErrorMsg('Select "' + SELECTEDNETWORKNAME + '" network to continue');
@@ -177,10 +175,7 @@ export default function PastAuctions() {
 
     let m = await web3.eth.getAccounts();
     setLoading(true);
-    alert("Making Payment");
-    await coinCt.methods
-      .approve(auctionAddress, String(item.price * 10 ** 18))
-      .send({ from: m[0] });
+    let o = String(item.price * 10 ** 18);
     alert("Transferring Item");
     await ct.methods.settleAuction(item.id).send({ from: m[0] });
     setLoading(false);
